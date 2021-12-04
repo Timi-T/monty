@@ -38,6 +38,7 @@ ret_vals *opcode_index(char *opcode, unsigned int line_no)
 		}
 		i++;
 	}
+	free(opcode);
 	printf("line %d", line_no);
 	/*write(2, line_no, strlen(line_no));*/
 	write(2, " :Unknown instruction ", 22);

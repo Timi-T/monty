@@ -12,6 +12,7 @@ int main(int ac, char **av)
 	monty_file = fopen(av[1], "r");
 	while ((line_no = getline(&line, &n, monty_file)) != -1)
 	{
+		printf("Line: %s\n", line);
 		line_no++;
 		evaluate(line, line_no);
 	}

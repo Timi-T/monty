@@ -189,13 +189,13 @@ void execute_instr(char *opcode, int func_index, unsigned int line_number, int i
 
 	exec = malloc(sizeof(instruction_t) + (1 * sizeof(char*)));
 	if (exec == NULL)
+	{
 		exit(EXIT_FAILURE);
+	}
 	exec->opcode = opcode;
 	exec->f = func_ptr[func_index];
 	if (func_index == 0)
 		exec->f(&stack, integer);
 	else
 		exec->f(&stack, line_number);
-	free(exec->opcode);
-	free(exec);
 }
