@@ -8,11 +8,11 @@
  *
  * Return: a data structure holding the index and a pointer location
  */
-ret_vals *opcode_index(char *opcode, unsigned int line_no)
+int opcode_index(char *opcode, unsigned int line_no)
 {
 	int i = 0, j = 0, s = 0, diff = 0;
 	char *ops[8] = {"push", "pall", "pint", "pop", "swap", "add", "nop", NULL};
-	ret_vals *index_point;
+	int index;
 
 	while (ops[i] != NULL)
 	{
@@ -31,10 +31,8 @@ ret_vals *opcode_index(char *opcode, unsigned int line_no)
 		}
 		if (diff == 0)
 		{
-			index_point = malloc(sizeof(ret_vals));
-			index_point->index = i;
-			index_point->pointer = s;
-			return (index_point);
+			index = i;
+			return (index);
 		}
 		i++;
 	}
