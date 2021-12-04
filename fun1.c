@@ -52,7 +52,7 @@ FILE *open_file(char *path, char *mode)
  * @line_no: line number
  *
  * Return: line number
- */
+ *
 int check_line(char *line, int line_no)
 {
 	char *line_copy = line, *instruction = NULL;
@@ -91,6 +91,48 @@ int check_line(char *line, int line_no)
 		i++;
 	}
 	return (line_no);
+}*/
+
+/**
+ * evaluate - function3 to check line for instructions
+ *
+ * @line: line to check for instructions
+ * @line_no: line number
+ *
+ * Return: nothing
+ */
+void evaluate(char *line, int line_no)
+{
+	char *opcode;
+	int instr_index, integer, done = 0;
+	int s = 0, i = 0, begin = 0;
+	ret_vals *index_point;
+
+	opcode = malloc(strlen(line) * sizeof(char));
+	while(line[s] != '\0')
+	{
+		if (line[s] != 32 && line[s] != 9 && begin == 0)
+			begin = 1;
+		if (begin == 1)
+		{
+			while(line[s] != 32 && line[s] != 9)
+			{
+				opcode[i] = line[s];
+				s++;
+				i++;
+			}
+			opcode[i] = '\0';
+			done = 1;
+			break;
+		}
+		if (done == 1)
+			break;
+		s++;
+	}
+	index_point = opcode_index(opcode, line_no);
+	instr_index = index_point->index;
+	integer = check_int(line, line_no, index_point->pointer, instr_index);
+	execute_instr(opcode, instr_index, line_no, integer);
 }
 
 /**
@@ -101,28 +143,35 @@ int check_line(char *line, int line_no)
  *
  * Return: integer
  */
-
-int check_int(char *line, int pointer_location, int line_no)
+int check_int(char *line, int line_no, int pointer_location, int func_index)
 {
 	char *line_copy = line;
-	int p = pointer_location, number;
+	int p = pointer_location, number, i = 0;
 
-	while (p != -1)
+	while (line_copy[i] != '\0')
 	{
-		*line_copy++;
-		p--;
-	}
-	while (*line_copy != '\0')
-	{
-		if (*line_copy != 32)
+		if (p != -1)
 		{
-			number = (int)(*line_copy);
-			return (number);
+			i++;
+			p--;
 		}
-		*line_copy++;
+		else
+		{
+			if (line_copy[i] != 32)
+			{
+				number = (int)(line_copy[i]);
+				return (number);
+			}
+			i++;
+		}
 	}
-	write(2, "Error: No integer to operate on", 31);
-	exit(EXIT_FAILURE);
+	if (func_index == 0)
+	{
+		printf("Line %d->", line_no);
+		write(2, "Error: No integer to operate on\n", 31);
+		exit(EXIT_FAILURE);
+	}
+	return(0);
 }
 
 /**
@@ -134,7 +183,7 @@ int check_int(char *line, int pointer_location, int line_no)
  *
  * Return: nothing
  */
-void execute_instr(char *opcode, int func_index, unsigned int line_number)
+void execute_instr(char *opcode, int func_index, unsigned int line_number, int integer)
 {
 	instruction_t *exec;
 
@@ -146,6 +195,9 @@ void execute_instr(char *opcode, int func_index, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	exec->opcode = opcode;
 	exec->f = func_ptr[func_index];
-	exec->f(&stack, line_number);
+	if (func_index == 0)
+		exec->f(&stack, integer);
+	else
+		exec->f(&stack, line_number);
 	free(exec);
 }

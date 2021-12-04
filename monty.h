@@ -33,12 +33,24 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct multiple_returns - data structure for multiple returns
+ *
+ * @index: index of opcode
+ * @pointer: pointer location on current line
+ */
+typedef struct multiple_returns
+{
+	int index;
+	int pointer;
+} ret_vals;
+
 stack_t *stack;
 void check_args(int ac);
 FILE *open_file(char *path, char *mode);
 int check_line(char *line, int line_no);
-int check_int(char *line, int pointer_location, int line_no);
-void execute_instr(char *opcode, int func_index, unsigned int line_number);
+int check_int(char *line, int line_no, int pointer_location, int func_index);
+void execute_instr(char *opcode, int func_index, unsigned int line_number, int integer);
 void push(stack_t **stack, unsigned int integer);
 void pall(stack_t **stack, unsigned int integer);
 void pint(stack_t **stack, unsigned int integer);
@@ -46,5 +58,7 @@ void pop(stack_t **stack, unsigned int integer);
 void swap(stack_t **stack, unsigned int integer);
 void add(stack_t **stack, unsigned int integer);
 void nop(stack_t **stack, unsigned int integer);
+void evaluate(char *line, int line_no);
+ret_vals *opcode_index(char *opcode, unsigned int line_no);
 
 #endif
