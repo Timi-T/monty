@@ -108,7 +108,7 @@ void evaluate(char *line, int line_no)
 			begin = 1;
 		if (begin == 1)
 		{
-			while(line[s] != 32 && line[s] != 9)
+			while(line[s] != 32 && line[s] != 9 && line[s] != '\0')
 			{
 				opcode[i] = line[s];
 				s++;

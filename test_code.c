@@ -1,11 +1,5 @@
-#include "stack.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
+#include "monty.h"
+
 /*global declaration of stack linked list and line number*/
 stack_t *stack = NULL;
 unsigned int line_no = 0;
