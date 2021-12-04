@@ -1,11 +1,4 @@
 #include "monty.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
 
 /**
  * check_args - function1 to check number of arguments
@@ -108,7 +101,7 @@ void evaluate(char *line, int line_no)
 	int s = 0, i = 0, begin = 0;
 	ret_vals *index_point;
 
-	opcode = malloc(strlen(line) * sizeof(char));
+	opcode = malloc((strlen(line) + 1) * sizeof(char));
 	while(line[s] != '\0')
 	{
 		if (line[s] != 32 && line[s] != 9 && begin == 0)
@@ -131,8 +124,12 @@ void evaluate(char *line, int line_no)
 	}
 	index_point = opcode_index(opcode, line_no);
 	instr_index = index_point->index;
-	integer = check_int(line, line_no, index_point->pointer, instr_index);
-	execute_instr(opcode, instr_index, line_no, integer);
+	if (instr_index != 6)
+	{
+		integer = check_int(line, line_no, index_point->pointer, instr_index);
+		execute_instr(opcode, instr_index, line_no, integer);
+	}
+	free(index_point);
 }
 
 /**
@@ -188,9 +185,9 @@ void execute_instr(char *opcode, int func_index, unsigned int line_number, int i
 	instruction_t *exec;
 
 	void (*func_ptr[7])(stack_t**, unsigned int) =
-	{push, pall, pint, pop, swap, add, nop};
+	{push, pall, pint, pop, swap, add};
 
-	exec = malloc(sizeof(instruction_t));
+	exec = malloc(sizeof(instruction_t) + (1 * sizeof(char*)));
 	if (exec == NULL)
 		exit(EXIT_FAILURE);
 	exec->opcode = opcode;
@@ -199,5 +196,6 @@ void execute_instr(char *opcode, int func_index, unsigned int line_number, int i
 		exec->f(&stack, integer);
 	else
 		exec->f(&stack, line_number);
+	free(exec->opcode);
 	free(exec);
 }

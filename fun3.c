@@ -13,6 +13,12 @@ void swap(stack_t **stack, unsigned int line_number)
 	stack_t *stack_copy = *stack;
 	int a, b;
 
+	if (stack == NULL || stack_copy->next == NULL)
+	{
+		printf("L%d", line_number);
+		write(2, ": can't swap, stack too short\n", 30);
+		exit(EXIT_FAILURE);
+	}
 	a = stack_copy->n;
 	stack_copy = stack_copy->next;
 	b = stack_copy->n;
@@ -33,21 +39,15 @@ void add(stack_t **stack, unsigned int line_number)
 	stack_t *stack_copy = *stack;
 	int a, b;
 
+	if (stack == NULL || stack_copy->next == NULL)
+	{
+		printf("L%d", line_number);
+		write(2, ": can't add, stack too short\n", 30);
+		exit(EXIT_FAILURE);
+	}
 	a = stack_copy->n;
 	stack_copy = stack_copy->next;
 	b = stack_copy->n;
 	pop(stack, line_number);
 	(*stack)->n = (a - 48) + (b - 48);
-}
-
-/**
- * nop - function3 does nothing
- *
- * @stack: stack to do nothing to
- * @line_number - line number in execution
- *
- * Return: nothing
- */
-void nop(stack_t **stack, unsigned int line_number)
-{
 }

@@ -1,8 +1,5 @@
 #include "monty.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+
 /**
  * opcode_index - function1 to get the opcode index in an array
  *
@@ -91,9 +88,10 @@ void push(stack_t **stack, unsigned int line_number)
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *stack_copy = *stack;
+	unsigned int ln = line_number;
 	while (stack_copy != NULL)
 	{
-		printf("%d\n", stack_copy->n);
+		printf("%d\n", (stack_copy->n) + (ln - ln));
 		stack_copy = stack_copy->next;
 	}
 }
@@ -109,7 +107,14 @@ void pall(stack_t **stack, unsigned int line_number)
 void pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *stack_copy = *stack;
+	unsigned int ln = line_number;
 
+	if (stack == NULL)
+	{
+		printf("L%d", ln);
+		write(2, ": can't pint, stack empty\n", 26);
+		exit(EXIT_FAILURE);
+	}
 	printf("%d\n", stack_copy->n);
 }
 
@@ -125,6 +130,13 @@ void pop(stack_t **stack, unsigned int line_number)
 {
         stack_t *stack_copy = *stack;
 
+	if (stack == NULL)
+	{
+		printf("L%d", line_number);
+		write(2, ": can't pop an empty stack\n", 27);
+		exit(EXIT_FAILURE);
+	}
+	stack_copy->n = line_number;
         (*stack) = (*stack)->next;
         (*stack)->prev = NULL;
         free(stack_copy);

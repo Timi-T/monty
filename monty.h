@@ -1,11 +1,13 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef MONTY_H
+#define MONTY_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#define _GNU_SOURCE
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 /**
