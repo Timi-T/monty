@@ -31,17 +31,20 @@ int opcode_index(char *opcode, unsigned int line_no)
 		}
 		if (diff == 0)
 		{
+			if (opcode[s] != 32 && opcode[s] != 9
+				&& opcode[s] != '\0')
+				break;
 			index = i;
 			return (index);
 		}
 		i++;
 	}
-	free(opcode);
 	printf("line %d", line_no);
 	/*write(2, line_no, strlen(line_no));*/
 	write(2, " :Unknown instruction ", 22);
 	write(2, opcode, strlen(opcode));
 	write(2, "\n", 1);
+	free(opcode);
 	exit(EXIT_FAILURE);
 }
 

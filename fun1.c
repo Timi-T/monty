@@ -67,7 +67,6 @@ void evaluate(char *line, int line_no)
 				i++;
 			}
 			opcode[i] = '\0';
-			printf("opcode: %s\n", opcode);
 			done = 1;
 			break;
 		}
@@ -110,7 +109,6 @@ int check_int(char *line, int line_no, int pointer_location, int func_index)
 			if (line_copy[i] != 32)
 			{
 				number = (int)(line_copy[i]);
-				printf("integer: %d\n", number);
 				return (number);
 			}
 			i++;
