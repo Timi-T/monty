@@ -37,11 +37,12 @@ int opcode_index(char *opcode, unsigned int line_no)
 		i++;
 	}
 	free(opcode);
-	printf("line %d", line_no);
-	/*write(2, line_no, strlen(line_no));*/
+	printf("line %d: unknown instruction %c\n", line_no, *opcode);
+	/*write(2, line_no, strlen(line_no));
 	write(2, " :Unknown instruction ", 22);
 	write(2, opcode, strlen(opcode));
 	write(2, "\n", 1);
+	puts("\n");*/
 	exit(EXIT_FAILURE);
 }
 
