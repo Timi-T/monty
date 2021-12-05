@@ -66,6 +66,6 @@ void swap(stack_t **stack, unsigned int integer);
 void add(stack_t **stack, unsigned int integer);
 void nop(stack_t **stack, unsigned int integer);
 void evaluate(char *line, int line_no);
-ret_vals *opcode_index(char *opcode, unsigned int line_no);
+int opcode_index(char *opcode, unsigned int line_no);
 
 #endif
