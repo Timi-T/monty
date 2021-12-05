@@ -141,17 +141,9 @@ void pop(stack_t **stack, unsigned int line_number)
 		write(2, ": can't pop an empty stack\n", 27);
 		exit(EXIT_FAILURE);
 	}
-
-	if ((*stack)->next == NULL)
-	{
-		free(*stack);
-		*stack = NULL;
-	}
-	else
-	{
-		(*stack) = (*stack)->next;
-		free(stack_copy);
-		stack_copy = NULL;
+	stack_copy->n = line_number;
+	(*stack) = (*stack)->next;
+	if ((*stack) != NULL)
 		(*stack)->prev = NULL;
-	}
+	free(stack_copy);
 }
