@@ -20,13 +20,14 @@ void check_args(int ac)
  * open_file - function2 to open a file
  *
  * @path: file path
- * @@mode: mode to open file in
+ * @mode: mode to open file in
  *
  * Return: pointer to file stream
  */
 FILE *open_file(char *path, char *mode)
 {
 	FILE *monty_file;
+
 	monty_file = fopen(path, mode);
 	if (monty_file == NULL)
 	{
@@ -53,13 +54,13 @@ void evaluate(char *line, int line_no)
 	int s = 0, i = 0, begin = 0;
 
 	opcode = malloc((strlen(line) + 100) * sizeof(char));
-	while(line[s] != '\0')
+	while (line[s] != '\0')
 	{
 		if (line[s] != 32 && line[s] != 9 && begin == 0)
 			begin = 1;
 		if (begin == 1)
 		{
-			while(line[s] != 32 && line[s] != 9 && line[s] != '\0')
+			while (line[s] != 32 && line[s] != 9 && line[s] != '\0')
 			{
 				opcode[i] = line[s];
 				s++;
@@ -87,6 +88,8 @@ void evaluate(char *line, int line_no)
  *
  * @line: line to check for integer
  * @pointer_location: location of pointer after instruction
+ * @line_no: line number of instruction
+ * @func_index: index of the opcode used
  *
  * Return: integer
  */
@@ -119,7 +122,7 @@ int check_int(char *line, int line_no, int pointer_location, int func_index)
 		write(2, "Error: No integer to operate on\n", 31);
 		exit(EXIT_FAILURE);
 	}
-	return(0);
+	return (0);
 }
 
 /**
@@ -127,18 +130,20 @@ int check_int(char *line, int line_no, int pointer_location, int func_index)
  *
  * @opcode: opcode if instruction
  * @func_index: index of function to be executed
- * @line_number:
+ * @line_number: line number of the instruction
+ * @integer: number to be entered into the stack
  *
  * Return: nothing
  */
-void execute_instr(char *opcode, int func_index, unsigned int line_number, int integer)
+void execute_instr(char *opcode, int func_index, unsigned int line_number,
+		   int integer)
 {
 	instruction_t *exec;
 
-	void (*func_ptr[7])(stack_t**, unsigned int) =
-	{push, pall, pint, pop, swap, add};
+	void (*func_ptr[7])(stack_t**, unsigned int) = {
+		push, pall, pint, pop, swap, add};
 
-	exec = malloc(sizeof(instruction_t) + (1 * sizeof(char*)));
+	exec = malloc(sizeof(instruction_t) + (1 * sizeof(char *)));
 	if (exec == NULL)
 	{
 		exit(EXIT_FAILURE);

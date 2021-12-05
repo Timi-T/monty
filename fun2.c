@@ -3,8 +3,8 @@
 /**
  * opcode_index - function1 to get the opcode index in an array
  *
- * opcode: opcode to check for
- * line_no: line number in execution
+ * @opcode: opcode to check for
+ * @line_no: line number in execution
  *
  * Return: a data structure holding the index and a pointer location
  */
@@ -49,7 +49,7 @@ int opcode_index(char *opcode, unsigned int line_no)
  * push - function2 to push an integer to stack
  *
  * @stack: stack to be pushed to
- * @line_number - line number in execution
+ * @line_number: line number in execution
  *
  * Return: nothing
  */
@@ -80,7 +80,7 @@ void push(stack_t **stack, unsigned int line_number)
  * pall - function3 to print all items on a stack
  *
  * @stack: stack to print from
- * @line_number - line number in execution
+ * @line_number: line number in execution
  *
  * Return: nothing
  */
@@ -88,6 +88,7 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *stack_copy = *stack;
 	unsigned int ln = line_number;
+
 	while (stack_copy != NULL)
 	{
 		printf("%d\n", (stack_copy->n - 48) + (ln - ln));
@@ -99,7 +100,7 @@ void pall(stack_t **stack, unsigned int line_number)
  * pint - function4 to print item at the top of stack
  *
  * @stack: stack to print from
- * @line_number - line number in execution
+ * @line_number: line number in execution
  *
  * Return: nothing
  */
@@ -121,13 +122,13 @@ void pint(stack_t **stack, unsigned int line_number)
  * pop - function5 to delete item at the top of stack
  *
  * @stack: stack to delete from
- * @line_number - line number in execution
+ * @line_number: line number in execution
  *
  * Return: nothing
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
-        stack_t *stack_copy = *stack;
+	stack_t *stack_copy = *stack;
 
 	if (stack == NULL)
 	{
@@ -136,7 +137,7 @@ void pop(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	stack_copy->n = line_number;
-        (*stack) = (*stack)->next;
-        (*stack)->prev = NULL;
-        free(stack_copy);
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+	free(stack_copy);
 }

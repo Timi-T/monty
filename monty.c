@@ -1,5 +1,12 @@
 #include "monty.h"
-
+/**
+ * main - Entry point
+ *
+ * @ac: number of arguements in stdin
+ * @av: array of arguments in stdin
+ *
+ * Return: nothing
+ */
 int main(int ac, char **av)
 {
 	char *line = NULL;
