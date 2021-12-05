@@ -57,7 +57,8 @@ void check_args(int ac);
 FILE *open_file(char *path, char *mode);
 int check_line(char *line, int line_no);
 int check_int(char *line, int line_no, int pointer_location, int func_index);
-void execute_instr(char *opcode, int func_index, unsigned int line_number, int integer);
+void execute_instr(char *opcode, int func_index, unsigned int line_number,
+		   int integer);
 void push(stack_t **stack, unsigned int integer);
 void pall(stack_t **stack, unsigned int integer);
 void pint(stack_t **stack, unsigned int integer);
