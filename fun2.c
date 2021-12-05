@@ -92,7 +92,7 @@ void pall(stack_t **stack, unsigned int line_number)
 	unsigned int ln = line_number;
 	while (stack_copy != NULL)
 	{
-		printf("%d\n", (stack_copy->n) + (ln - ln));
+		printf("%d\n", (stack_copy->n - 48) + (ln - ln));
 		stack_copy = stack_copy->next;
 	}
 }

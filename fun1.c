@@ -176,7 +176,7 @@ int check_int(char *line, int line_no, int pointer_location, int func_index)
  *
  * @opcode: opcode if instruction
  * @func_index: index of function to be executed
- * @line_number: 
+ * @line_number:
  *
  * Return: nothing
  */
