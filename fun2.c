@@ -29,19 +29,21 @@ int opcode_index(char *opcode, unsigned int line_no)
 			s++;
 			j++;
 		}
+
 		if (diff == 0)
 		{
-			if (opcode[s] != 32 && opcode[s] != 9
-				&& opcode[s] != '\0')
+			if (opcode[s + 1] != 32 && opcode[s + 1] != 9
+				&& opcode[s + 1] != '\0')
 				break;
 			index = i;
 			return (index);
 		}
 		i++;
 	}
-	printf("line %d", line_no);
+	printf("%d", line_no);
+	write(2, "L", 1);
 	/*write(2, line_no, strlen(line_no));*/
-	write(2, " :Unknown instruction ", 22);
+	write(2, ": unknown instruction ", 22);
 	write(2, opcode, strlen(opcode));
 	write(2, "\n", 1);
 	free(opcode);
@@ -118,7 +120,7 @@ void pint(stack_t **stack, unsigned int line_number)
 		write(2, ": can't pint, stack empty\n", 26);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", stack_copy->n);
+	printf("%d\n", (stack_copy->n - 48));
 }
 
 /**
@@ -133,14 +135,23 @@ void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *stack_copy = *stack;
 
-	if (stack == NULL)
+	if (stack == NULL || stack_copy->n == 0)
 	{
 		printf("L%d", line_number);
 		write(2, ": can't pop an empty stack\n", 27);
 		exit(EXIT_FAILURE);
 	}
-	stack_copy->n = line_number;
-	(*stack) = (*stack)->next;
-	(*stack)->prev = NULL;
-	free(stack_copy);
+
+	if ((*stack)->next == NULL)
+	{
+		free(*stack);
+		*stack = NULL;
+	}
+	else
+	{
+		(*stack) = (*stack)->next;
+		free(stack_copy);
+		stack_copy = NULL;
+		(*stack)->prev = NULL;
+	}
 }

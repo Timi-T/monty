@@ -49,5 +49,5 @@ void add(stack_t **stack, unsigned int line_number)
 	stack_copy = stack_copy->next;
 	b = stack_copy->n;
 	pop(stack, line_number);
-	(*stack)->n = (a - 48) + (b - 48);
+	(*stack)->n = a + b - 48;
 }
