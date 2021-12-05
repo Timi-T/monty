@@ -2,7 +2,6 @@
 #define MONTY_H
 
 #define _GNU_SOURCE
-#include "monty.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
