@@ -1,0 +1,2 @@
+#!/bin/bash
+gcc -Wall -Werror -Wextra -pedantic -std=c90 monty.c monty.h fun1.c fun2.c fun3.c -o monty
