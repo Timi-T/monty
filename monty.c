@@ -8,7 +8,7 @@ int main(int ac, char **av)
 	ssize_t line_no;
 
 	check_args(ac);
-	monty_file = fopen(av[1], "r");
+	monty_file = open_file(av[1], "r");
 	while ((line_no = getline(&line, &n, monty_file)) != -1)
 	{
 		/*printf("Line: %s\n", line);*/
